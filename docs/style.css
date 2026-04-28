@@ -799,6 +799,26 @@ a {
   font-size: 1rem;
 }
 
+.cta-buttons {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+}
+
+.cta-button--outline {
+  background: transparent;
+  color: var(--a-ink);
+  border: 2px solid var(--a-ink);
+}
+
+.cta-button--outline:hover {
+  background: var(--a-ink);
+  color: var(--a-bg);
+}
+
 /* ───────────────────────────────────────
    Footer — Pair B
    ─────────────────────────────────────── */
