@@ -60,11 +60,8 @@
 ## 📦 파일 구성
 
 ```
-├── OTF/              # OpenType 폰트 (.otf)
-├── TTF/              # TrueType 폰트 (.ttf)
-├── WOFF/             # Web Open Font Format (.woff, .woff2)
 ├── src/              # FontForge 소스 파일 (.sfd)
-├── release/          # 배포용 ZIP
+├── release/          # 배포용 ZIP 및 글꼴 형식에 따른 배포 파일
 ├── docs/             # 소개 페이지 (GitHub Pages)
 ├── FONTLOG.txt       # 변경 이력
 └── LICENSE           # SIL Open Font License 1.1
