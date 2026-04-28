@@ -326,29 +326,34 @@
     });
   });
 
-  const mouse = Mouse.create(render.canvas);
-  const mouseConstraint = MouseConstraint.create(engine, {
-    mouse: mouse,
-    constraint: { stiffness: 0.2, render: { visible: false } }
-  });
-  Composite.add(world, mouseConstraint);
-  mouse.element.removeEventListener("mousewheel", mouse.mousewheel);
-  mouse.element.removeEventListener("DOMMouseScroll", mouse.mousewheel);
+  const isMobile = window.innerWidth < 768;
 
+  // 모바일에서는 마우스 상호작용 비활성화
+  let mouseConstraint = null;
   let mousePos = null;
-  container.addEventListener('mousemove', (e) => {
-    const rect = container.getBoundingClientRect();
-    mousePos = { x: e.clientX - rect.left, y: e.clientY - rect.top };
-  });
-  container.addEventListener('mouseleave', () => {
-    mousePos = null;
-  });
+
+  if (!isMobile) {
+    const mouse = Mouse.create(render.canvas);
+    mouseConstraint = MouseConstraint.create(engine, {
+      mouse: mouse,
+      constraint: { stiffness: 0.2, render: { visible: false } }
+    });
+    Composite.add(world, mouseConstraint);
+    mouse.element.removeEventListener("mousewheel", mouse.mousewheel);
+    mouse.element.removeEventListener("DOMMouseScroll", mouse.mousewheel);
+
+    container.addEventListener('mousemove', (e) => {
+      const rect = container.getBoundingClientRect();
+      mousePos = { x: e.clientX - rect.left, y: e.clientY - rect.top };
+    });
+    container.addEventListener('mouseleave', () => {
+      mousePos = null;
+    });
+  }
 
   Events.on(engine, 'beforeUpdate', () => {
-    const isMobile = window.innerWidth < 768;
-    
-    if (!isMobile) {
-      mouseConstraint.collisionFilter.mask = 0; 
+    if (!isMobile && mouseConstraint) {
+      mouseConstraint.collisionFilter.mask = 0;
       
       if (mousePos) {
         const bodies = Composite.allBodies(world);
@@ -371,8 +376,6 @@
           }
         });
       }
-    } else {
-      mouseConstraint.collisionFilter.mask = 0xFFFFFFFF;
     }
   });
 
@@ -484,7 +487,17 @@
 
       // Live text update
       input.addEventListener('input', (e) => {
-        output.textContent = e.target.value || '여기에 텍스트를 입력하세요...';
+        let text = e.target.value;
+        let singleCount = 0;
+        let doubleCount = 0;
+        text = text.replace(/'/g, () => {
+          singleCount++;
+          return singleCount % 2 === 1 ? '\u2018' : '\u2019'; // ' 또는 '
+        }).replace(/"/g, () => {
+          doubleCount++;
+          return doubleCount % 2 === 1 ? '\u201C' : '\u201D'; // " 또는 "
+        });
+        output.textContent = text || '어쩌구저쩌구!!';
       });
     })();
 
