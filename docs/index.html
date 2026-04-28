@@ -184,7 +184,7 @@
         </div>
       </div>
 
-      <textarea class="type-tester-input" id="type-tester-input" placeholder="여기에 텍스트를 입력하세요..." rows="3">동녘 구름 틈새로 퍼지는 햇빛</textarea>
+      <textarea class="type-tester-input" id="type-tester-input" placeholder="여기에 텍스트를 입력하세요" rows="3"></textarea>
       
       <div class="type-tester-output" id="type-tester-output" style="font-weight: 400; font-size: 48px;">
         동녘 구름 틈새로 퍼지는 햇빛
@@ -484,19 +484,32 @@
         output.style.fontSize = size + 'px';
       });
 
+      // Smart quotes
+      function toSmartQuotes(str) {
+        return str
+        // 큰따옴표: 앞에 공백·시작이면 여는 따옴표, 아니면 닫는 따옴표
+        .replace(/(^|[\s\(\[\{])"/, '$1\u201C')   // "  →  "
+        .replace(/"/, '\u201D')                    // "  →  "
+        // 작은따옴표·어퍼스트로피
+        .replace(/(^|[\s\(\[\{])'/, '$1\u2018')   // '  →  '
+        .replace(/'/, '\u2019');                   // '  →  '
+      }
+
+      input.addEventListener('input', (e) => {
+        const sel = this.selectionStart;   // 커서 위치 저장
+        const original = this.value;
+        const converted = toSmartQuotes(this.value);
+
+        if (original !== converted) {
+          this.value = converted;
+          this.setSelectionRange(sel, sel);  // 커서 복원
+        };
+      });
+
       // Live text update
       input.addEventListener('input', (e) => {
         let text = e.target.value;
-        let singleCount = 0;
-        let doubleCount = 0;
-        text = text.replace(/'/g, () => {
-          singleCount++;
-          return singleCount % 2 === 1 ? '\u2018' : '\u2019'; // ' 또는 '
-        }).replace(/"/g, () => {
-          doubleCount++;
-          return doubleCount % 2 === 1 ? '\u201C' : '\u201D'; // " 또는 "
-        });
-        output.textContent = text || '어쩌구저쩌구!!';
+        output.textContent = text || '동녘 구름 틈새로 퍼지는 햇빛';
       });
     })();
 
