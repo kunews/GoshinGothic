@@ -11,28 +11,28 @@
 </head>
 
 <body>
-<section class="hero" id="hero">
-  <div id="canvas-container"></div>
-  <div class="hero-content">
-    <p class="hero-label">고신고딕 GoshinGothic</p>
-    <h1 class="hero-headline">
-      <span class="highlight">이야기 듣는 데 최적.</span>
-    </h1>
-  </div>
+  <section class="hero" id="hero">
+    <div id="canvas-container"></div>
+    <div class="hero-content">
+      <p class="hero-label">고신고딕 GoshinGothic</p>
+      <h1 class="hero-headline">
+        <span class="highlight">이야기 듣는 데 최적.</span>
+      </h1>
+    </div>
 
-  <div class="hero-scroll" aria-hidden="true">
-    <span>내려서 살펴보기</span>
-    <div class="hero-scroll-line"></div>
-  </div>
-</section>
+    <div class="hero-scroll" aria-hidden="true">
+      <span>내려서 살펴보기</span>
+      <div class="hero-scroll-line"></div>
+    </div>
+  </section>
 
   <!-- ─── Intro ─── -->
   <section class="intro" id="intro">
     <div class="intro-inner reveal">
       <p class="intro-body">
-          고대신문은 그간 디지털 콘텐츠의 글꼴로 <a href="https://cactus.tistory.com/306" target="_blank">프리텐다드</a>를 사용했습니다.
-          깔끔하고 세련된 글꼴이지만 <b>따옴표, 줄임표</b> 등 일부 기호가 신문 속 글자 모양과 달라 어색합니다.
-          이에 2026년 1월부터 따옴표, 줄임표, 부등호, 쉼표를 포함한 <b>여러 특수기호와 한자를 전통 출판 자형과 어울리도록 다듬었습니다.</b>
+        고대신문은 그간 디지털 콘텐츠의 글꼴로 <a href="https://cactus.tistory.com/306" target="_blank">프리텐다드</a>를 사용했습니다.
+        깔끔하고 세련된 글꼴이지만 <b>따옴표, 줄임표</b> 등 일부 기호가 신문 속 글자 모양과 달라 어색합니다.
+        이에 2026년 1월부터 따옴표, 줄임표, 부등호, 쉼표를 포함한 <b>여러 특수기호와 한자를 전통 출판 자형과 어울리도록 다듬었습니다.</b>
       </p>
       <p class="intro-body">
         그렇게 탄생한 고신고딕은 고대신문 디자인 시스템의 일부입니다.
@@ -112,7 +112,7 @@
           <span class="feature-number">03</span>
           <h3 class="feature-name">부등호</h3>
           <p class="feature-desc">기존 프리텐다드의 부등호(&lt;&gt;)는 수학 기호의 모양입니다. 부등호를 화살괄호 대신 쓰는 만큼 <b>부등호의 모양을 화살괄호처럼 보이게
-                바꿨습니다.</b></p>
+              바꿨습니다.</b></p>
           <img class="feature-img" src="img/greater-less than-sign.png" alt="부등호 자형 비교" loading="lazy">
         </li>
       </ul>
@@ -170,7 +170,7 @@
     <div class="type-tester-inner">
       <h2 class="type-tester-title">폰트 체험하기</h2>
       <p class="type-tester-desc">원하는 텍스트를 입력해 보세요.</p>
-      
+
       <div class="type-tester-controls">
         <div class="type-weight-controls">
           <button class="type-weight-btn active" data-weight="400">Regular</button>
@@ -186,7 +186,7 @@
       </div>
 
       <textarea class="type-tester-input" id="type-tester-input" placeholder="여기에 텍스트를 입력하세요" rows="3"></textarea>
-      
+
       <div class="type-tester-output" id="type-tester-output" style="font-weight: 400; font-size: 48px;">
         동녘 구름 틈새로 퍼지는 햇빛
       </div>
@@ -199,7 +199,8 @@
     <p class="reveal">SIL 오픈 폰트 라이선스, 개인적·상업적 이용 가능</p>
     <h2 class="cta-headline reveal">지금 사용해 보세요.</h2>
     <div class="cta-buttons reveal">
-      <a href="https://github.com/kunews/GoshinGothic" target="_blank" class="cta-button cta-button--outline" id="github-btn">GitHub에서 보기</a>
+      <a href="https://github.com/kunews/GoshinGothic" target="_blank" class="cta-button cta-button--outline"
+        id="github-btn">GitHub에서 보기</a>
       <a href="../release/GoshinGothic 2-350 Dist.zip" class="cta-button" id="download-btn"
         download="GoshinGothic 2-350 Dist.zip">다운로드</a>
     </div>
@@ -215,182 +216,182 @@
   </footer>
 
   <script>
-(() => {
-  const container = document.getElementById('canvas-container');
-  if (!container) return;
+    (() => {
+      const container = document.getElementById('canvas-container');
+      if (!container) return;
 
-  const { Engine, Render, Runner, Bodies, Body, Composite, MouseConstraint, Mouse, Events } = Matter;
+      const { Engine, Render, Runner, Bodies, Body, Composite, MouseConstraint, Mouse, Events } = Matter;
 
-  const engine = Engine.create();
-  engine.positionIterations = 20;
-  engine.velocityIterations = 20;
-  engine.gravity.y = 1; 
-  const world = engine.world;
+      const engine = Engine.create();
+      engine.positionIterations = 20;
+      engine.velocityIterations = 20;
+      engine.gravity.y = 1;
+      const world = engine.world;
 
-  const render = Render.create({
-    element: container,
-    engine: engine,
-    options: {
-      width: container.clientWidth,
-      height: container.clientHeight,
-      background: 'transparent',
-      wireframes: false
-    }
-  });
-
-  Render.run(render);
-  const runner = Runner.create();
-  Runner.run(runner, engine);
-
-  let walls = [];
-  function createWalls() {
-    const width = container.clientWidth;
-    const height = container.clientHeight;
-    Composite.remove(world, walls);
-    walls = [
-      Bodies.rectangle(width / 2, height + 50, width, 100, { isStatic: true, render: { visible: false } }),
-      Bodies.rectangle(-50, height / 2, 100, height, { isStatic: true, render: { visible: false } }),
-      Bodies.rectangle(width + 50, height / 2, 100, height, { isStatic: true, render: { visible: false } })
-    ];
-    Composite.add(world, walls);
-  }
-
-  const glyphs = ['고', '신', '딕', 'A', '道', 'あ', '1', '“', '”', '…', '<', '>'];
-
-  function spawnGlyphs() {
-    const isMobile = window.innerWidth < 768;
-    const count = isMobile ? 40 : 40; 
-    const size = isMobile ? 180 : 400; 
-
-    for (let i = 0; i < count; i++) {
-      const x = (Math.random() * (container.clientWidth - 100)) + 50;
-      const y = (Math.random() * -container.clientHeight) - 300;
-      const char = glyphs[Math.floor(Math.random() * glyphs.length)];
-      
-      let parts = [];
-      const S = size;
-      const thick = S * 0.2; 
-
-      if (['고', '신', '딕', '道'].includes(char)) {
-        parts.push(Bodies.rectangle(0, 0, S * 0.8, S * 0.8, { chamfer: { radius: S * 0.1 } }));
-      } else if (char === 'A') {
-        parts.push(Bodies.rectangle(-S*0.15, 0, thick, S*0.8, { angle: Math.PI/10 }));
-        parts.push(Bodies.rectangle(S*0.15, 0, thick, S*0.8, { angle: -Math.PI/10 }));
-        parts.push(Bodies.rectangle(0, S*0.1, S*0.3, thick * 0.6));
-      } else if (char === '1') {
-        parts.push(Bodies.rectangle(0, 0, thick * 1.2, S * 0.8, { chamfer: { radius: 5 } }));
-      } else if (char === 'あ') {
-        parts.push(Bodies.circle(0, 0, S * 0.4));
-      } else if (char === '…') {
-        parts.push(Bodies.circle(-S * 0.35, 0, S * 0.08));
-        parts.push(Bodies.circle(0, 0, S * 0.08));
-        parts.push(Bodies.circle(S * 0.35, 0, S * 0.08));
-      } else if (char === '<' || char === '>') {
-        const sign = char === '<' ? 1 : -1;
-        parts.push(Bodies.rectangle(sign * S * 0.05, -S * 0.18, S * 0.5, thick, { angle: -sign * Math.PI/6, chamfer: {radius: thick/2} }));
-        parts.push(Bodies.rectangle(sign * S * 0.05, S * 0.18, S * 0.5, thick, { angle: sign * Math.PI/6, chamfer: {radius: thick/2} }));
-      } else {
-        parts.push(Bodies.rectangle(0, 0, S * 0.4, S * 0.5, { chamfer: { radius: S * 0.1 } }));
-      }
-
-      const body = Body.create({
-        parts: parts,
-        friction: 3,
-        restitution: 0,
-        density: 1,
-        render: { visible: false }
+      const render = Render.create({
+        element: container,
+        engine: engine,
+        options: {
+          width: container.clientWidth,
+          height: container.clientHeight,
+          background: 'transparent',
+          wireframes: false
+        }
       });
 
-      const originalCoM = { x: body.position.x, y: body.position.y };
-      Body.setPosition(body, { x: x, y: y });
+      Render.run(render);
+      const runner = Runner.create();
+      Runner.run(runner, engine);
 
-      body.customLabel = { char: char, size: S, offsetX: -originalCoM.x, offsetY: -originalCoM.y };
-      Composite.add(world, body);
-    }
-  }
-
-  Events.on(render, 'afterRender', function() {
-    const ctx = render.context;
-    const bodies = Composite.allBodies(world);
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-
-    bodies.forEach(body => {
-      if (body.customLabel) {
-        const { char, size, offsetX, offsetY } = body.customLabel;
-        ctx.save();
-        ctx.translate(body.position.x, body.position.y);
-        ctx.rotate(body.angle);
-        ctx.font = `800 ${size}px GoshinGothic`;
-        ctx.fillStyle = '#fff1f1';
-        ctx.fillText(char, offsetX, offsetY);
-        ctx.restore();
+      let walls = [];
+      function createWalls() {
+        const width = container.clientWidth;
+        const height = container.clientHeight;
+        Composite.remove(world, walls);
+        walls = [
+          Bodies.rectangle(width / 2, height + 50, width, 100, { isStatic: true, render: { visible: false } }),
+          Bodies.rectangle(-50, height / 2, 100, height, { isStatic: true, render: { visible: false } }),
+          Bodies.rectangle(width + 50, height / 2, 100, height, { isStatic: true, render: { visible: false } })
+        ];
+        Composite.add(world, walls);
       }
-    });
-  });
 
-  const isMobile = window.innerWidth < 768;
+      const glyphs = ['고', '신', '딕', 'A', '道', 'あ', '1', '“', '”', '…', '<', '>'];
 
-  // 모바일에서는 마우스 상호작용 비활성화
-  let mouseConstraint = null;
-  let mousePos = null;
+      function spawnGlyphs() {
+        const isMobile = window.innerWidth < 768;
+        const count = isMobile ? 40 : 40;
+        const size = isMobile ? 180 : 400;
 
-  if (!isMobile) {
-    const mouse = Mouse.create(render.canvas);
-    mouseConstraint = MouseConstraint.create(engine, {
-      mouse: mouse,
-      constraint: { stiffness: 0.2, render: { visible: false } }
-    });
-    Composite.add(world, mouseConstraint);
-    mouse.element.removeEventListener("mousewheel", mouse.mousewheel);
-    mouse.element.removeEventListener("DOMMouseScroll", mouse.mousewheel);
+        for (let i = 0; i < count; i++) {
+          const x = (Math.random() * (container.clientWidth - 100)) + 50;
+          const y = (Math.random() * -container.clientHeight) - 300;
+          const char = glyphs[Math.floor(Math.random() * glyphs.length)];
 
-    container.addEventListener('mousemove', (e) => {
-      const rect = container.getBoundingClientRect();
-      mousePos = { x: e.clientX - rect.left, y: e.clientY - rect.top };
-    });
-    container.addEventListener('mouseleave', () => {
-      mousePos = null;
-    });
-  }
+          let parts = [];
+          const S = size;
+          const thick = S * 0.2;
 
-  Events.on(engine, 'beforeUpdate', () => {
-    if (!isMobile && mouseConstraint) {
-      mouseConstraint.collisionFilter.mask = 0;
-      
-      if (mousePos) {
+          if (['고', '신', '딕', '道'].includes(char)) {
+            parts.push(Bodies.rectangle(0, 0, S * 0.8, S * 0.8, { chamfer: { radius: S * 0.1 } }));
+          } else if (char === 'A') {
+            parts.push(Bodies.rectangle(-S * 0.15, 0, thick, S * 0.8, { angle: Math.PI / 10 }));
+            parts.push(Bodies.rectangle(S * 0.15, 0, thick, S * 0.8, { angle: -Math.PI / 10 }));
+            parts.push(Bodies.rectangle(0, S * 0.1, S * 0.3, thick * 0.6));
+          } else if (char === '1') {
+            parts.push(Bodies.rectangle(0, 0, thick * 1.2, S * 0.8, { chamfer: { radius: 5 } }));
+          } else if (char === 'あ') {
+            parts.push(Bodies.circle(0, 0, S * 0.4));
+          } else if (char === '…') {
+            parts.push(Bodies.circle(-S * 0.35, 0, S * 0.08));
+            parts.push(Bodies.circle(0, 0, S * 0.08));
+            parts.push(Bodies.circle(S * 0.35, 0, S * 0.08));
+          } else if (char === '<' || char === '>') {
+            const sign = char === '<' ? 1 : -1;
+            parts.push(Bodies.rectangle(sign * S * 0.05, -S * 0.18, S * 0.5, thick, { angle: -sign * Math.PI / 6, chamfer: { radius: thick / 2 } }));
+            parts.push(Bodies.rectangle(sign * S * 0.05, S * 0.18, S * 0.5, thick, { angle: sign * Math.PI / 6, chamfer: { radius: thick / 2 } }));
+          } else {
+            parts.push(Bodies.rectangle(0, 0, S * 0.4, S * 0.5, { chamfer: { radius: S * 0.1 } }));
+          }
+
+          const body = Body.create({
+            parts: parts,
+            friction: 3,
+            restitution: 0,
+            density: 1,
+            render: { visible: false }
+          });
+
+          const originalCoM = { x: body.position.x, y: body.position.y };
+          Body.setPosition(body, { x: x, y: y });
+
+          body.customLabel = { char: char, size: S, offsetX: -originalCoM.x, offsetY: -originalCoM.y };
+          Composite.add(world, body);
+        }
+      }
+
+      Events.on(render, 'afterRender', function () {
+        const ctx = render.context;
         const bodies = Composite.allBodies(world);
-        const repelRadius = 150; 
-        const repelForce = 0.05; 
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
 
         bodies.forEach(body => {
-          if (body.isStatic) return;
-
-          const dx = body.position.x - mousePos.x;
-          const dy = body.position.y - mousePos.y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-
-          if (dist < repelRadius && dist > 0) {
-            const forceMultiplier = ((repelRadius - dist) / repelRadius) * repelForce * body.mass;
-            Body.applyForce(body, body.position, {
-              x: (dx / dist) * forceMultiplier,
-              y: (dy / dist) * forceMultiplier
-            });
+          if (body.customLabel) {
+            const { char, size, offsetX, offsetY } = body.customLabel;
+            ctx.save();
+            ctx.translate(body.position.x, body.position.y);
+            ctx.rotate(body.angle);
+            ctx.font = `800 ${size}px GoshinGothic`;
+            ctx.fillStyle = '#fff1f1';
+            ctx.fillText(char, offsetX, offsetY);
+            ctx.restore();
           }
         });
+      });
+
+      const isMobile = window.innerWidth < 768;
+
+      // 모바일에서는 마우스 상호작용 비활성화
+      let mouseConstraint = null;
+      let mousePos = null;
+
+      if (!isMobile) {
+        const mouse = Mouse.create(render.canvas);
+        mouseConstraint = MouseConstraint.create(engine, {
+          mouse: mouse,
+          constraint: { stiffness: 0.2, render: { visible: false } }
+        });
+        Composite.add(world, mouseConstraint);
+        mouse.element.removeEventListener("mousewheel", mouse.mousewheel);
+        mouse.element.removeEventListener("DOMMouseScroll", mouse.mousewheel);
+
+        container.addEventListener('mousemove', (e) => {
+          const rect = container.getBoundingClientRect();
+          mousePos = { x: e.clientX - rect.left, y: e.clientY - rect.top };
+        });
+        container.addEventListener('mouseleave', () => {
+          mousePos = null;
+        });
       }
-    }
-  });
 
-  createWalls();
-  spawnGlyphs();
+      Events.on(engine, 'beforeUpdate', () => {
+        if (!isMobile && mouseConstraint) {
+          mouseConstraint.collisionFilter.mask = 0;
 
-  window.addEventListener('resize', () => {
-    render.canvas.width = container.clientWidth;
-    render.canvas.height = container.clientHeight;
-    createWalls();
-  });
-})();
+          if (mousePos) {
+            const bodies = Composite.allBodies(world);
+            const repelRadius = 150;
+            const repelForce = 0.05;
+
+            bodies.forEach(body => {
+              if (body.isStatic) return;
+
+              const dx = body.position.x - mousePos.x;
+              const dy = body.position.y - mousePos.y;
+              const dist = Math.sqrt(dx * dx + dy * dy);
+
+              if (dist < repelRadius && dist > 0) {
+                const forceMultiplier = ((repelRadius - dist) / repelRadius) * repelForce * body.mass;
+                Body.applyForce(body, body.position, {
+                  x: (dx / dist) * forceMultiplier,
+                  y: (dy / dist) * forceMultiplier
+                });
+              }
+            });
+          }
+        }
+      });
+
+      createWalls();
+      spawnGlyphs();
+
+      window.addEventListener('resize', () => {
+        render.canvas.width = container.clientWidth;
+        render.canvas.height = container.clientHeight;
+        createWalls();
+      });
+    })();
     /* ── Hero typing animation ── */
     (() => {
       const headline = document.querySelector('.hero-headline');
@@ -442,9 +443,9 @@
       controls.addEventListener('click', (e) => {
         const btn = e.target.closest('.glyph-weight-btn');
         if (!btn) return;
-        
+
         const newWeight = btn.dataset.weight;
-        
+
         // Ripple animation - stagger each cell slightly for water ripple effect
         cells.forEach((cell, i) => {
           setTimeout(() => {
@@ -452,11 +453,11 @@
             setTimeout(() => cell.classList.remove('ripple'), 500);
           }, i * 15);
         });
-        
+
         setTimeout(() => {
           grid.style.fontWeight = newWeight;
         }, 200);
-        
+
         controls.querySelector('.active')?.classList.remove('active');
         btn.classList.add('active');
       });
@@ -488,25 +489,29 @@
         output.style.fontSize = size + 'px';
       });
 
-      // Smart quotes
+      // Smart quotes + ellipsis
       function toSmartQuotes(str) {
         return str
-        // 큰따옴표: 앞에 공백·시작이면 여는 따옴표, 아니면 닫는 따옴표
-        .replace(/(^|[\s\(\[\{])"/, '$1\u201C')   // "  →  "
-        .replace(/"/, '\u201D')                    // "  →  "
-        // 작은따옴표·어퍼스트로피
-        .replace(/(^|[\s\(\[\{])'/, '$1\u2018')   // '  →  '
-        .replace(/'/, '\u2019');                   // '  →  '
+          // 마침표 세 개 → 줄임표
+          .replace(/\.{3}/g, '\u2026')               // ...  →  …
+          // 큰따옴표: 앞에 공백·시작이면 여는 따옴표, 아니면 닫는 따옴표
+          .replace(/(^|[\s\(\[\{])"/, '$1\u201C')   // "  →  "
+          .replace(/"/, '\u201D')                    // "  →  "
+          // 작은따옴표·어퍼스트로피
+          .replace(/(^|[\s\(\[\{])'/, '$1\u2018')   // '  →  '
+          .replace(/'/, '\u2019');                   // '  →  '
       }
 
       input.addEventListener('input', (e) => {
-        const sel = this.selectionStart;   // 커서 위치 저장
-        const original = this.value;
-        const converted = toSmartQuotes(this.value);
+        const sel = input.selectionStart;   // 커서 위치 저장
+        const original = input.value;
+        const converted = toSmartQuotes(input.value);
 
         if (original !== converted) {
-          this.value = converted;
-          this.setSelectionRange(sel, sel);  // 커서 복원
+          input.value = converted;
+          // 줄임표 치환 시 글자 수가 줄어드므로 커서 위치 보정
+          const diff = original.length - converted.length;
+          input.setSelectionRange(sel - diff, sel - diff);  // 커서 복원
         };
       });
 
