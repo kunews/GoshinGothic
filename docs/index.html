@@ -220,7 +220,7 @@
       const container = document.getElementById('canvas-container');
       if (!container) return;
 
-      const { Engine, Render, Runner, Bodies, Body, Composite, MouseConstraint, Mouse, Events } = Matter;
+      const { Engine, Render, Runner, Bodies, Body, Composite, Events } = Matter;
 
       const engine = Engine.create();
       engine.positionIterations = 20;
@@ -328,59 +328,6 @@
             ctx.restore();
           }
         });
-      });
-
-      const isMobile = window.innerWidth < 768;
-
-      // 모바일에서는 마우스 상호작용 비활성화
-      let mouseConstraint = null;
-      let mousePos = null;
-
-      if (!isMobile) {
-        const mouse = Mouse.create(render.canvas);
-        mouseConstraint = MouseConstraint.create(engine, {
-          mouse: mouse,
-          constraint: { stiffness: 0.2, render: { visible: false } }
-        });
-        Composite.add(world, mouseConstraint);
-        mouse.element.removeEventListener("mousewheel", mouse.mousewheel);
-        mouse.element.removeEventListener("DOMMouseScroll", mouse.mousewheel);
-
-        container.addEventListener('mousemove', (e) => {
-          const rect = container.getBoundingClientRect();
-          mousePos = { x: e.clientX - rect.left, y: e.clientY - rect.top };
-        });
-        container.addEventListener('mouseleave', () => {
-          mousePos = null;
-        });
-      }
-
-      Events.on(engine, 'beforeUpdate', () => {
-        if (!isMobile && mouseConstraint) {
-          mouseConstraint.collisionFilter.mask = 0;
-
-          if (mousePos) {
-            const bodies = Composite.allBodies(world);
-            const repelRadius = 150;
-            const repelForce = 0.05;
-
-            bodies.forEach(body => {
-              if (body.isStatic) return;
-
-              const dx = body.position.x - mousePos.x;
-              const dy = body.position.y - mousePos.y;
-              const dist = Math.sqrt(dx * dx + dy * dy);
-
-              if (dist < repelRadius && dist > 0) {
-                const forceMultiplier = ((repelRadius - dist) / repelRadius) * repelForce * body.mass;
-                Body.applyForce(body, body.position, {
-                  x: (dx / dist) * forceMultiplier,
-                  y: (dy / dist) * forceMultiplier
-                });
-              }
-            });
-          }
-        }
       });
 
       createWalls();
